@@ -1,0 +1,11 @@
+program_1.s:
+Clock Cycle:             2186
+Instructions Completed:  913
+CPI:                     2.3943
+Stalls:                  1257
+
+program_1_a.s:
+Clock Cycle:             1928
+Instructions Completed:  913
+CPI:                     2.11172
+Stalls:                  999
