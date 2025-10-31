@@ -9,3 +9,9 @@ Clock Cycle:             1928
 Instructions Completed:  913
 CPI:                     2.11172
 Stalls:                  999
+
+program_1_b.s:
+Clock Cycle:             1976
+Instructions Completed:  785
+CPI:                     2.5172
+Stalls:                  1191
