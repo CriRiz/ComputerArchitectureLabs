@@ -11,7 +11,7 @@ CPI:                     1.79878
 Stalls:                  109
 
 program_1_b.s:
-Clock Cycle:             
-Instructions Completed:  
-CPI:                     
-Stalls:                  
+Clock Cycle:             215
+Instructions Completed:  124
+CPI:                     1.73387
+Stalls:                  77
