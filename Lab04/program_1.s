@@ -3,6 +3,7 @@ i: .float 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13
 w: .float 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0
 b: .word 0xab
 m: .word 0x7F800000
+y: .space 2 #alloco 2 byte
 
 .section .text
 .global _start
@@ -12,6 +13,7 @@ _start:
     la x2, w # indirizzo base di w
     la x3, b # indirizzo di b
     la x16, m # maschera
+    la x31, y # output
     lw x5, 0(x16)
     flw f2, 0(x3) # carica b in f2
     li x4, 16 # contatore = 16 elementi
@@ -51,6 +53,7 @@ if: # se l'esponente = 0xFF
     addi x11, x0, 0x00000000
 
 end:
+    sw x11, 0(x31) # salvo y in memoria
     li a0, 0
     li a7, 93
     ecall
