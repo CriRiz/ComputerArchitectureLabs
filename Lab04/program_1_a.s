@@ -17,7 +17,6 @@ _start:
     lw x5, 0(x16)
     flw f2, 0(x3) # carica b in f2
     li x4, 16 # contatore = 16 elementi
-    li x30, 0xFF
     fmv.s.x f0, x0 # accumulatore x = 0.0
 
 loop:
@@ -27,11 +26,15 @@ loop:
     flw f1, 0(x1) # f1 = i[n]
     flw f3, 0(x2) # f3 = w[n]
     fmul.s f4, f1, f3 # f4 = i * w
-    fadd.s f0, f0, f4 # x += (i*w)
 
+    #-----------------------------------ottimizzazione
     addi x1, x1, 4  # incremento indirizzo di i
     addi x2, x2, 4  # incremento indirizzo di w
     addi x4, x4, -1 # decremento contatore loop
+    #-----------------------------------
+
+    fadd.s f0, f0, f4 # x += (i*w)
+
     j loop
 
 endLoop:
@@ -57,4 +60,5 @@ end:
     li a0, 0
     li a7, 93
     ecall
+
 
