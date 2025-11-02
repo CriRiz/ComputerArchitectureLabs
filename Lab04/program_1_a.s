@@ -44,9 +44,9 @@ endLoop:
     fmv.x.w x6, f0      # copio i bits del float in x6
     and x10, x6, x5     # tiro fuori l'esponente
     srli x10, x10, 23   # shift a destra di 23 (dove c'era la mantissa)
-    beqz x10, if 
+    beq x10, x30, if 
 
-    addi x11, x0, 0xFFFFFFFF 
+    add x11, x0, x30 
     j end
 
 if: # se l'esponente = 0
@@ -57,4 +57,3 @@ end:
     li a0, 0
     li a7, 93
     ecall
-
