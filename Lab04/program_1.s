@@ -43,10 +43,10 @@ endLoop:
     srli x10, x10, 23   # shift a destra di 23 (dove c'era la mantissa)
     beq x10, x30, if 
 
-    add x11, x0, x30 
+    add x11, x0, x10 
     j end
 
-if: # se l'esponente = 0
+if: # se l'esponente = 0xFF
 
     addi x11, x0, 0x00000000
 
