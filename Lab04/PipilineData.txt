@@ -1,7 +1,7 @@
 program_1.s:
-Clock Cycle:             344
-Instructions Completed:  164
-CPI:                     2.09756
+Clock Cycle:             345
+Instructions Completed:  165
+CPI:                     2.09091
 Stalls:                  157
 
 program_1_a.s:
