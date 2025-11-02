@@ -3,7 +3,7 @@ i: .float 0.0, 1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0, 11.0, 12.0, 13
 w: .float 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, 1.6, 1.7, 1.8, 1.9, 2.0
 b: .word 0xab
 m: .word 0x7F800000
-y: .space 2 #alloco 2 byte
+y: .space 4 #alloco 4 byte
 
 .section .text
 .global _start
