@@ -1,0 +1,23 @@
+    .global _start
+    .text
+
+_start:
+    MOV     R10, #0b00110101
+    MOV     R13, #0              // Parità iniziale
+
+loop:
+    // Bit meno significativo
+    AND     R0, R10, #1 
+
+    // XOR
+    EOR     R13, R13, R0
+
+    // Bit successivo
+    LSR     R10, R10, #1
+
+    // 5. Controlla se R10 è diventato 0 → se no, ripeti
+    CMP     R10, #0
+    BNE     loop
+
+    MOV     R7, #1
+    SWI     0

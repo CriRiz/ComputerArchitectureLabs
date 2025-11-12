@@ -1,0 +1,26 @@
+    .global _start
+    .text
+
+_start:
+    MOV     R1, #-5         
+    MOV     R2, #7          
+
+    CMP     R1, R2
+    BEQ     equal_case  
+    BNE     different_case
+
+different_case:
+    CMP     R1, R2
+    MOVGT   R8, R1          // R1 > R2, R8 = R1
+    MOVLT   R8, R2          // R1 < R2, R8 = R2
+    B       end_program
+
+equal_case:
+    MOV     R3, R1
+    LSR     R3, R3, #1      // R3 = R1 >> 1
+    SUB     R9, R2, R3      // R9 = R2 - R3
+    B       end_program
+
+end_program:
+    MOV     R7, #1
+    SWI     0

@@ -1,0 +1,21 @@
+    .global _start
+    .text
+
+_start:
+    MOV     R1, #-5
+    MOV     R2, #7
+
+    CMP     R1, R2
+
+    MOVGT   R8, R1          // Se R1 > R2
+    MOVLT   R8, R2          // Se R1 < R2
+
+    // Blocco di codice eseguito solo se R1 e R2 sono uguali
+
+    MOVEQ   R3, R1
+    LSREQ   R3, R3, #1
+    SUBEQ   R9, R2, R3
+
+
+    MOV     R7, #1
+    SWI     0
