@@ -1,0 +1,8 @@
+Creazione progetto:
+-Project -> new microvision project
+-NXP -> LPC1700 Series -> LPC176x -> LPC1768
+-Device -> Startup, spunta Sel. -> Resolve
+-Target_1 -> Device -> startup_LPC17xx.s
+-Option for Target -> Debug
+	-Spunta su Use Simulator
+	-No spunta su Run to main()
