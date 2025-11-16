@@ -1,0 +1,9 @@
+Per sapere quanti byte occupa codice:
+- Options for Target 'Target_1' -> Linker
+	- Inserire "--map" in "Misc controls"
+
+Per sapere i microsecondi in esecuzione:
+- Start/Stop Debug Session
+- View -> Analysis Windows
+
+Se si scrive xtal=15000000 su Command Window il tempo su Perfomance Analyzer viene influenzato
