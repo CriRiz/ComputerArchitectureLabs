@@ -127,22 +127,24 @@ Reset_Handler   PROC
                 
 				;OUR CODE IS HERE!------------------------
 				
-				MOV     R10, #0b00110101
-                MOV     R9, #0    // Parità iniziale
+				MOV     R10, #53
+                MOV     R9, #0    ; Parità iniziale
 
 loop
-                // Bit meno significativo
+                ; Bit meno significativo
                 AND     R0, R10, #1 
 
-                // XOR
+                ; XOR
                 EOR     R9, R9, R0
 
-                // Bit successivo
+                ; Bit successivo
                 LSR     R10, R10, #1
 
-                // Se R10 = 0 allora il ciclo è finito
+                ; Se R10 = 0 allora il ciclo è finito
                 CMP     R10, #0
                 BNE     loop
+				
+				PUSH	{R9} ;salvo solo alla fine la parità nello stack, facendo push salva direttamente in R13
 				
 				;-----------------------------------------
 				
