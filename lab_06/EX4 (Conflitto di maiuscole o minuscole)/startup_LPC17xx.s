@@ -127,15 +127,22 @@ Reset_Handler   PROC
                 
 				;OUR CODE IS HERE!------------------------
 				
-				MOV     R0, #53  ; valore da controllare
-				MOV     R1, #0           ; parità iniziale
+				MOV     R10, #0b00110101
+                MOV     R9, #0    // Parità iniziale
 
 loop
-				AND     R2, R0, #1       ; bit meno significativo
-				EOR     R1, R1, R2       ; XOR con parità
-				LSR     R0, R0, #1       ; shift a destra
-				CMP     R0, #0
-				BNE     loop
+                // Bit meno significativo
+                AND     R0, R10, #1 
+
+                // XOR
+                EOR     R9, R9, R0
+
+                // Bit successivo
+                LSR     R10, R10, #1
+
+                // Se R10 = 0 allora il ciclo è finito
+                CMP     R10, #0
+                BNE     loop
 				
 				;-----------------------------------------
 				
