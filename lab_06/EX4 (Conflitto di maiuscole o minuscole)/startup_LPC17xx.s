@@ -144,8 +144,9 @@ loop
                 CMP     R10, #0
                 BNE     loop
 				
-				PUSH	{R9} ;salvo solo alla fine la parità nello stack, facendo push salva direttamente in R13
-				
+				;PUSH	{R9} ;salvo solo alla fine la parità nello stack, facendo push salva direttamente in R13
+				LDR     R13, R9
+
 				;-----------------------------------------
 				
                 ENDP
