@@ -117,22 +117,19 @@ CRP_Key         DCD     0xFFFFFFFF
                 ENDIF
 
 
-                AREA    |.text|, CODE, READONLY
-				
-				AREA	|.data|, DATA, READWRITE, ALIGN=2
+				AREA	Mydata, DATA, READWRITE, ALIGN=2
 				SPACE 4096
 				
-				Cards	
-					DCD	0x134, 3, 275, 0x2B9, 0xDC, 151, 2087
-				Condition	
-					DCD	2087, 2, 275, 0x0, 308, 0x1, 0xDC, 2, 151, 2, 0x3, 0, 697, 2
-				PurchasePrice	
-					DCD	0x3, 2000, 0x113, 2, 151, 9, 0x134, 45, 2087, 17, 220, 5, 697, 350
-				CurrentPrice	
-					DCD	0xDC, 3, 151, 16, 3, 3300, 697, 420, 308, 63, 275, 1, 0x827, 3
-				#Cards
-					DCB 7
+
+
+
+                AREA    |.text|, CODE, READONLY
 				
+Cards DCD	0x134, 3, 275, 0x2B9, 0xDC, 151, 2087
+Condition	DCD	2087, 2, 275, 0x0, 308, 0x1, 0xDC, 2, 151, 2, 0x3, 0, 697, 2
+PurchasePrice	DCD	0x3, 2000, 0x113, 2, 151, 9, 0x134, 45, 2087, 17, 220, 5, 697, 350
+CurrentPrice	DCD	0xDC, 3, 151, 16, 3, 3300, 697, 420, 308, 63, 275, 1, 0x827, 3
+CardsN DCB 7			
 
 
 ; Reset Handler
@@ -142,29 +139,52 @@ Reset_Handler   PROC
                 
 				;OUR CODE HERE------------------------------------
 				LDR		r0, =Cards
-				LDR		r1, =Condition
-				LDR 	r2, =PurchasePrice
-				LDR		r3, =CurrentPrice
-				LDR		r4, =#Cards
-				LDR		r6, [r4]
-				MOV		r5, #0		
+				PUSH	{r0}
+				LDR		r0, =Condition
+				PUSH	{r0}
+				LDR 	r0, =PurchasePrice
+				PUSH	{r0}
+				LDR		r0, =CurrentPrice
+				PUSH	{r0}
+				LDR		r0, =CardsN
+				LDRB	r1, [r0]	; fine Array
+				;MOV		r1, #7
+				MOV		r2, #0		; indice loop1
 				
 				;Fare loop sull'array carte e poi fare confronto con altri vettori
 				
-loop
-				CMP		r5, r6
+loop			
+				LDR     r3, [sp, #12]   ; indirizzo base di Cards
+				CMP		r2, r1			;fine loop
 				BEQ		endL
-				LDR		r7, [r0, r5, LSL #2] ;si occupa dell'offset
-				ADD		r5, r5, #1
+				LDR     r4, [r3, r2, LSL #2] ; r4 = Cards[r2] (array di WORD) (ID carta)
+				ADD		r2, r2, #1
+							
+				LDR		r5, [sp, #4]	;PurchasePrice
+loop2
+				LDR		r6, [r5], #4	;ID carta
+				CMP		r4, r6			;confornto IDs
+				BNE		loop2
+				LDR		r6, [r5, #4]	;Costo acquisto
+				PUSH	{r6}			
+
+				LDR		r5, [sp, #4]	;CurrentPrice
+loop3			
+				LDR		r6, [r5], #4	;ID carta
+				CMP		r4, r6			;confornto IDs
+				BNE		loop3
+				LDR		r6, [r5, #4]	;costo odierno
+				LDR		r7, [sp, #0]
+				SUBS	r8, r6, r7		;apprezzamento/deprezzamento		
+				BLT		deprezzamento
+				ADD		r11, r11, #1
 				
-loop2			
-				LDR		r9, r2
-				LDR		r8, [r9]
-				ADD		r9, #8
-				CMP		r7, r8
-				BEQ		
+deprezzamento
+				POP		{r6}
+				B	loop
 				
 endL
+				B 		.
 				
 				;-------------------------------------------------
 				
