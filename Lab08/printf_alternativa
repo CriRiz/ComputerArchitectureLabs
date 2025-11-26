@@ -1,0 +1,11 @@
+Essendo che in keil la printf non produce nessun output visibile. 
+Per andare a vedere dei valori facciamo così: 
+
+
+In Keil, compili in modalità Debug.
+
+Metti un breakpoint dopo il ciclo che riempie ERRORS.
+
+Apri la Watch Window o Memory Window
+
+Inserisci ERRORS o vector e puoi vedere i valori in tempo reale.
