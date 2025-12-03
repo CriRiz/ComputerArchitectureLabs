@@ -20,6 +20,9 @@
 
 /* Led external variables from funct_led */
 extern unsigned char led_value;					/* defined in funct_led								*/
+
+extern unsigned char lfsr_step(unsigned char current_state, unsigned char taps, int *output_bit); /* Funzione aggiunta Lab09
+
 #ifdef SIMULATOR
 extern uint8_t ScaleFlag; // <- ScaleFlag needs to visible in order for the emulator to find the symbol (can be placed also inside system_LPC17xx.h but since it is RO, it needs more work)
 #endif
@@ -32,25 +35,16 @@ int main (void) {
   SystemInit();  												/* System Initialization (i.e., PLL)  */
   LED_init();                           /* LED Initialization                 */
   BUTTON_init();												/* BUTTON Initialization              */
-	int i;
+	
 	unsigned char current_state = 0b00011101;
 	unsigned char taps = 0b00011101;
-	unsigned char feedback = 0b00000000;
+	int* output_bit;
+	
 	while(1){
-		int *output_bit; 
-		unsigned char state = ((((current_state & 0b00000001)^(current_state >> 2 & 0b00000001))^(current_state >> 3 & 0b00000001))^(current_state >> 4 & 0b00000001));
-		*output_bit = current_state & 0b00000001; // bit meno significativo
-		current_state = current_state >> 1; // shift di 1
-		current_state = current_state | (state << 7); // valore aggiornato
-		
-		
-		
-		LED_Out(current_state);
-		for (i = 0; i < 100000000; i++); // delay
+		current_state = lfsr_step(current_state, taps, output_bit);
 	}
 	
-	
-	while (1) {                           /* Loop forever                       */	
+  while (1) {                           /* Loop forever                       */	
   }
 
 }
