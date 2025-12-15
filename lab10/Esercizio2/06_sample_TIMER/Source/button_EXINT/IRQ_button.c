@@ -6,6 +6,7 @@
 #include "../timer/timer.h"
 
 extern volatile uint32_t NUMBER;
+volatile uint8_t key1_blocked = 0;
 
 void EINT0_IRQHandler (void)	  	/* INT0														 */
 {
@@ -14,17 +15,22 @@ void EINT0_IRQHandler (void)	  	/* INT0														 */
 }
 
 
-void EINT1_IRQHandler (void)	  	/* KEY1														 */
+void EINT1_IRQHandler (void)	  	/* KEY1 */
 {
-  //NUMBER--;
-	
-	if (NUMBER > 0){ //MIGLIORAMENTO
-		NUMBER--;
+	if (!key1_blocked) {
+		key1_blocked = 1;    // blocca rimbalzo
+
+		if (NUMBER > 0) {
+			NUMBER--;
+		}
+
+		reset_timer(1);
+		enable_timer(1);     // TIMER3 = debounce
 	}
-	
-	//DA MODIFICARE
-	LPC_SC->EXTINT &= (1 << 1);     /* clear pending interrupt         */
+
+	LPC_SC->EXTINT = (1 << 1);  // clear interrupt
 }
+
 
 void EINT2_IRQHandler (void)	  	/* KEY2														 */
 {

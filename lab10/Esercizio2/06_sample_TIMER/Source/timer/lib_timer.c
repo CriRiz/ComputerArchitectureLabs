@@ -158,6 +158,7 @@ uint32_t init_timer ( uint8_t timer_num, uint32_t TimerInterval )
   }
   else if (timer_num == 1)
   {
+	LPC_SC->PCONP |= (1 << 21);
 	LPC_TIM1->MR0 = TimerInterval;
 	LPC_TIM1->MCR = 3;				
 
@@ -167,6 +168,7 @@ uint32_t init_timer ( uint8_t timer_num, uint32_t TimerInterval )
   }
 	else
   {
+	LPC_SC->PCONP |= (1 << 22);
 	LPC_TIM2->MR0 = TimerInterval;
 	LPC_TIM2->MCR = 3;				
 

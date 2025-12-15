@@ -12,6 +12,7 @@
 #include "led.h"
 
 extern volatile uint32_t NUMBER;
+extern volatile uint8_t key1_blocked;
 
 /******************************************************************************
 ** Function name:		Timer0_IRQHandler
@@ -71,13 +72,19 @@ void Collision(void){
 	}
 }
 
-
 void TIMER1_IRQHandler (void)
 {
-	Collision();
-  LPC_TIM1->IR = 0x3F;			/* clear interrupt flag */
-  return;
+	if (key1_blocked) {
+		key1_blocked = 0;      // fine debounce
+		disable_timer(1);
+	}
+	else {
+		Collision();           // comportamento originale
+	}
+
+	LPC_TIM1->IR = 0x3F;
 }
+
 
 void TIMER2_IRQHandler (void)
 {	
@@ -88,11 +95,12 @@ void TIMER2_IRQHandler (void)
 
 void TIMER3_IRQHandler (void)
 {
-	LPC_TIM3->IR = 0X3F;
-	
+	key1_blocked = 0;     // fine debounce
+	disable_timer(3);    // ferma timer
+
+	LPC_TIM3->IR = 0x3F;  // clear interrupt
 	return;
 }
-
 /******************************************************************************
 **                            End Of File
 ******************************************************************************/

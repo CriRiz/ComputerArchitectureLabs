@@ -34,11 +34,12 @@ int main (void) {
   	
 	SystemInit();  												/* System Initialization (i.e., PLL)  */
   LED_init();                           /* LED Initialization                 */
-  BUTTON_init();												/* BUTTON Initialization              */
+  BUTTON_init();				
+	/* BUTTON Initialization              */
 	float t1, t2;
 	
 	t1 = 0.211; 
-	t2 = 0.211; //0.307
+	t2 = 0.307;
 	
 	uint32_t PCLK = 25000000;
 	uint32_t timer1, timer2;
