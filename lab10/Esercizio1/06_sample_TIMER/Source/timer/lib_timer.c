@@ -92,10 +92,10 @@ void reset_timer( uint8_t timer_num )
 
 uint32_t init_timer ( uint8_t timer_num, uint32_t TimerInterval )
 {
-	float perc;
+	//float perc;
   if ( timer_num == 0 )
   {
-	LPC_TIM0->MR0 = TimerInterval*perc; //PER ACCENDERE LED
+	LPC_TIM0->MR0 = TimerInterval>>1; //PER ACCENDERE LED
 	LPC_TIM0->MR1 = TimerInterval; //PER SPEGNERE LED
 	//LPC_TIM0->MR2 = TimerInterval * 4;	
 		
@@ -170,8 +170,8 @@ uint32_t init_timer ( uint8_t timer_num, uint32_t TimerInterval )
 	return (1);
   }
 	else if ( timer_num == 2 ){	//ESERCIZIO 1
-		perc = 0.5; //CAMBIARE
-		LPC_TIM2->MR0 = TimerInterval*perc; //PER ACCENDERE LED
+//		perc = 0.5; //CAMBIARE
+		LPC_TIM2->MR0 = TimerInterval>>1; //PER ACCENDERE LED
 		LPC_TIM2->MR1 = TimerInterval; //PER SPEGNERE LED
 
 		LPC_TIM2->MCR = 25; //serve per attivare interrupt MR0, MR1
@@ -181,8 +181,8 @@ uint32_t init_timer ( uint8_t timer_num, uint32_t TimerInterval )
 		return (1);
 	}
 	else{	//ESERCIZIO 1
-		perc = 0.5; //CAMBIARE
-		LPC_TIM3->MR0 = TimerInterval*perc; //PER ACCENDERE LED
+//		perc = 0.5; //CAMBIARE
+		LPC_TIM3->MR0 = TimerInterval>>1; //PER ACCENDERE LED
 		LPC_TIM3->MR1 = TimerInterval; //PER SPEGNERE LED
 
 		LPC_TIM3->MCR = 25; //serve per attivare interrupt MR0, MR1

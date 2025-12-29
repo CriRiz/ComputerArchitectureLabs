@@ -33,17 +33,21 @@ int main (void) {
 	SystemInit();  												/* System Initialization (i.e., PLL)  */
   LED_init();                           /* LED Initialization                 */
   BUTTON_init();												/* BUTTON Initialization              */
-	float t1, t2;
+//	float t1, t2;
+//	
+//	t1 = 0.025; //40Hz
+//	t2 = 0.033; //30Hz
+//	
+//	uint32_t PCLK = 25000000;
+//	uint32_t timer1, timer2;
+//	
+//	timer1 = (uint32_t)(t1 * (float)PCLK + 0.5f);
+//	timer2 = (uint32_t)(t2 * (float)PCLK + 0.5f);
+//	
 	
-	t1 = 0.025; //40Hz
-	t2 = 0.033; //30Hz
-	
-	uint32_t PCLK = 25000000;
 	uint32_t timer1, timer2;
-	
-	timer1 = (uint32_t)(t1 * (float)PCLK + 0.5f);
-	timer2 = (uint32_t)(t2 * (float)PCLK + 0.5f);
-
+	timer1 = 0x98968;
+	timer2 = 0xc96a8;
 	
 	/* choose one of the following timers.
 	They have the same behaviour: leds are turned off and on at regular intervals */
